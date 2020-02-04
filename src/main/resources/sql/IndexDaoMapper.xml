@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhangC.dao.mapper.IndexDaoMapping">
+    <select id="queryMobileInfo" resultType="java.util.Map">
+        SELECT
+        *
+        FROM
+        mobiles
+        WHERE mobileId = #{mobileId}
+    </select>
+
+<!--    <select id="queryGroupOverViewData" resultType="java.util.Map">-->
+<!--        SELECT-->
+<!--        SUM(ticketIncome) AS ticketIncome,-->
+<!--        SUM(showSoldNum) AS showSoldNum,-->
+<!--        SUM(goodsSoldIncomes) AS goodsSoldIncomes,-->
+<!--        SUM(memIncome) AS memIncome,-->
+<!--        SUM(newCardNums) AS newCardNums-->
+<!--        FROM-->
+<!--        (SELECT-->
+<!--        IFNULL(SUM(ticket_income), 0) AS ticketIncome,-->
+<!--        IFNULL(SUM(movie_show_sold_nums), 0) AS showSoldNum,-->
+<!--        0 AS goodsSoldIncomes,-->
+<!--        0 AS memIncome,-->
+<!--        0 AS newCardNums-->
+<!--        FROM-->
+<!--        new_t_m_sell_day-->
+<!--        WHERE 1 = 1-->
+<!--        AND movie_show_start_date <![CDATA[>=]]> #{startDate,jdbcType=DATE}-->
+<!--        AND movie_show_start_date <![CDATA[<=]]>#{endDate,jdbcType=DATE}-->
+<!--        AND cinema_code IN-->
+<!--        <foreach collection="cinemaCodes" item="cinema" index="index" open="(" close=")" separator=",">-->
+<!--            #{cinema}-->
+<!--        </foreach>-->
+<!--        UNION-->
+<!--        ALL-->
+<!--        SELECT-->
+<!--        0 AS ticketIncome,-->
+<!--        0 AS showSoldNum,-->
+<!--        IFNULL(SUM(goods_sold_incomes), 0) AS goodsSoldIncomes,-->
+<!--        0 AS memIncome,-->
+<!--        0 AS newCardNums-->
+<!--        FROM-->
+<!--        new_t_m_retail_sell_cinema_day-->
+<!--        WHERE 1 = 1-->
+<!--        AND business_date <![CDATA[>=]]> #{startDate,jdbcType=DATE}-->
+<!--        AND business_date <![CDATA[<=]]>#{endDate,jdbcType=DATE}-->
+<!--        AND cinema_code IN-->
+<!--        <foreach collection="cinemaCodes" item="cinema" index="index" open="(" close=")" separator=",">-->
+<!--            #{cinema}-->
+<!--        </foreach>-->
+<!--        UNION-->
+<!--        ALL-->
+<!--        SELECT-->
+<!--        0 AS ticketIncome,-->
+<!--        0 AS showSoldNum,-->
+<!--        0 AS goodsSoldIncomes,-->
+<!--        SUM(amount_in + amount_out) AS memIncome,-->
+<!--        0 AS newCardNums-->
+<!--        FROM-->
+<!--        new_t_m_card_action-->
+<!--        WHERE is_recharge = 1-->
+<!--        AND card_business_id = 7-->
+<!--        AND cinema_code IN-->
+<!--        <foreach collection="cinemaCodes" item="cinema" index="index" open="(" close=")" separator=",">-->
+<!--            #{cinema}-->
+<!--        </foreach>-->
+<!--        AND business_date <![CDATA[>=]]> #{startDate,jdbcType=DATE}-->
+<!--        AND business_date <![CDATA[<=]]>#{endDate,jdbcType=DATE}-->
+<!--        UNION-->
+<!--        ALL-->
+<!--        SELECT-->
+<!--        0 AS ticketIncome,-->
+<!--        0 AS showSoldNum,-->
+<!--        0 AS goodsSoldIncomes,-->
+<!--        0 AS memIncome,-->
+<!--        SUM(new_card_nums) AS newCardNums-->
+<!--        FROM-->
+<!--        new_t_m_card_snapshot-->
+<!--        WHERE 1 = 1-->
+<!--        AND card_status = 1-->
+<!--        AND card_cinema_code IN-->
+<!--        <foreach collection="cinemaCodes" item="cinema" index="index" open="(" close=")" separator=",">-->
+<!--            #{cinema}-->
+<!--        </foreach>-->
+<!--        AND business_date <![CDATA[>=]]> #{startDate,jdbcType=DATE}-->
+<!--        AND business_date <![CDATA[<=]]>#{endDate,jdbcType=DATE}) m-->
+<!--    </select>-->
+
+
+<!--    <select id="queryGroupOverViewDataRT" resultType="java.util.Map">-->
+
+<!--        SELECT-->
+<!--        SUM(ticketIncome) AS ticketIncome,-->
+<!--        SUM(showSoldNum) AS showSoldNum,-->
+<!--        SUM(goodsSoldIncomes) AS goodsSoldIncomes-->
+<!--        FROM-->
+<!--        (SELECT-->
+<!--        IFNULL(SUM(ticket_income), 0) AS ticketIncome,-->
+<!--        IFNULL(SUM(movie_show_sold_nums), 0) AS showSoldNum,-->
+<!--        0 AS goodsSoldIncomes-->
+<!--        FROM-->
+<!--        new_t_m_sell_session_rt-->
+<!--        WHERE del_flag = 1-->
+<!--        AND movie_show_start_date <![CDATA[>=]]> #{startDate,jdbcType=DATE}-->
+<!--        AND movie_show_start_date <![CDATA[<=]]>#{endDate,jdbcType=DATE}-->
+<!--        AND cinema_code IN-->
+<!--        <foreach collection="cinemaCodes" item="cinema" index="index" open="(" close=")" separator=",">-->
+<!--            #{cinema}-->
+<!--        </foreach>-->
+<!--        UNION-->
+<!--        ALL-->
+<!--        SELECT-->
+<!--        0 AS ticketIncome,-->
+<!--        0 AS showSoldNum,-->
+<!--        IFNULL(SUM(rt.goods_sold_incomes), 0) AS goodsSoldIncomes-->
+<!--        FROM-->
+<!--        new_t_m_retail_channel_rt AS rt-->
+<!--        WHERE 1 = 1-->
+<!--        AND business_date <![CDATA[>=]]> #{startDate,jdbcType=DATE}-->
+<!--        AND business_date <![CDATA[<=]]>#{endDate,jdbcType=DATE}-->
+<!--        AND cinema_code IN-->
+<!--        <foreach collection="cinemaCodes" item="cinema" index="index" open="(" close=")" separator=",">-->
+<!--            #{cinema}-->
+<!--        </foreach>-->
+<!--        ) m-->
+<!--    </select>-->
+
+
+<!--    <select id="queryActualDataInfo" resultType="java.util.Map">-->
+<!--        SELECT-->
+<!--        SUM(ticketIncome) AS ticketIncome,-->
+<!--        SUM(goodsSoldIncomes) AS goodsSoldIncomes,-->
+<!--        SUM(memIncome) AS memIncome,-->
+<!--        SUM(newCardNums) AS newCardNums-->
+<!--        FROM-->
+<!--        (SELECT-->
+<!--        DATE_FORMAT(movie_show_start_date, '%Y%m') AS monthDate,-->
+<!--        cinema_code,-->
+<!--        IFNULL(SUM(ticket_income), 0) AS ticketIncome,-->
+<!--        0 AS goodsSoldIncomes,-->
+<!--        0 AS memIncome,-->
+<!--        0 AS newCardNums-->
+<!--        FROM-->
+<!--        new_t_m_sell_day-->
+<!--        WHERE 1 = 1-->
+<!--        AND movie_show_start_date <![CDATA[>=]]> #{startDate,jdbcType=DATE}-->
+<!--        AND movie_show_start_date <![CDATA[<=]]>#{endDate,jdbcType=DATE}-->
+<!--        AND cinema_code IN-->
+<!--        <foreach collection="cinemas" item="cinema" index="index" open="(" close=")" separator=",">-->
+<!--            #{cinema}-->
+<!--        </foreach>-->
+<!--        GROUP BY monthDate-->
+<!--        UNION-->
+<!--        ALL-->
+<!--        SELECT-->
+<!--        DATE_FORMAT(business_date, '%Y%m') AS monthDate,-->
+<!--        cinema_code,-->
+<!--        0 AS ticketIncome,-->
+<!--        IFNULL(SUM(goods_sold_incomes), 0) AS goodsSoldIncomes,-->
+<!--        0 AS memIncome,-->
+<!--        0 AS newCardNums-->
+<!--        FROM-->
+<!--        new_t_m_retail_sell_cinema_day-->
+<!--        WHERE 1 = 1-->
+<!--        AND business_date <![CDATA[>=]]> #{startDate,jdbcType=DATE}-->
+<!--        AND business_date <![CDATA[<=]]>#{endDate,jdbcType=DATE}-->
+<!--        AND cinema_code IN-->
+<!--        <foreach collection="cinemas" item="cinema" index="index" open="(" close=")" separator=",">-->
+<!--            #{cinema}-->
+<!--        </foreach>-->
+<!--        GROUP BY monthDate-->
+<!--        UNION-->
+<!--        ALL-->
+<!--        SELECT-->
+<!--        DATE_FORMAT(business_date, '%Y%m') AS monthDate,-->
+<!--        cinema_code,-->
+<!--        0 AS ticketIncome,-->
+<!--        0 AS goodsSoldIncomes,-->
+<!--        SUM(amount_in + amount_out) AS memIncome,-->
+<!--        0 AS newCardNums-->
+<!--        FROM-->
+<!--        new_t_m_card_action-->
+<!--        WHERE is_recharge = 1-->
+<!--        AND card_business_id = 7-->
+<!--        AND cinema_code IN-->
+<!--        <foreach collection="cinemas" item="cinema" index="index" open="(" close=")" separator=",">-->
+<!--            #{cinema}-->
+<!--        </foreach>-->
+<!--        AND business_date <![CDATA[>=]]> #{startDate,jdbcType=DATE}-->
+<!--        AND business_date <![CDATA[<=]]>#{endDate,jdbcType=DATE}-->
+<!--        GROUP BY monthDate-->
+<!--        UNION-->
+<!--        ALL-->
+<!--        SELECT-->
+<!--        DATE_FORMAT(business_date, '%Y%m') AS monthDate,-->
+<!--        card_cinema_code AS cinema_code,-->
+<!--        0 AS ticketIncome,-->
+<!--        0 AS goodsSoldIncomes,-->
+<!--        0 AS memIncome,-->
+<!--        SUM(new_card_nums) AS newCardNums-->
+<!--        FROM-->
+<!--        new_t_m_card_snapshot-->
+<!--        WHERE 1 = 1-->
+<!--        AND card_status = 1-->
+<!--        AND card_cinema_code IN-->
+<!--        <foreach collection="cinemas" item="cinema" index="index" open="(" close=")" separator=",">-->
+<!--            #{cinema}-->
+<!--        </foreach>-->
+<!--        AND business_date <![CDATA[>=]]> #{startDate,jdbcType=DATE}-->
+<!--        AND business_date <![CDATA[<=]]>#{endDate,jdbcType=DATE}-->
+<!--        GROUP BY monthDate) m-->
+<!--        LEFT JOIN `t_d_cinema_info` cinema-->
+<!--        ON m.cinema_code = cinema.cinema_code-->
+<!--        GROUP BY m.monthDate-->
+<!--    </select>-->
+
+
+<!--    <select id="queryKpiTargetDataInfo" resultType="java.util.Map">-->
+<!--        SELECT-->
+<!--        SUM(box_office_target) AS ticketIncome,-->
+<!--        SUM(goods_target) AS goodsSoldIncomes,-->
+<!--        SUM(card_target) AS memIncome,-->
+<!--        SUM(card_count) AS newCardNums-->
+<!--        FROM-->
+<!--        `bd_kpi_target`-->
+<!--        WHERE 1 = 1-->
+<!--        AND target_year = #{targetYear,jdbcType=INTEGER}-->
+<!--        AND target_month = #{targetMonth,jdbcType=INTEGER}-->
+<!--        AND cinema_num IN-->
+<!--        <foreach collection="cinemas" item="cinema" index="index" open="(" close=")" separator=",">-->
+<!--            #{cinema}-->
+<!--        </foreach>-->
+<!--        GROUP BY CONCAT(target_year, '-', target_month)-->
+<!--    </select>-->
+
+
+<!--    <select id="queryTodayBoxOffice" resultType="java.util.Map">-->
+
+<!--        SELECT-->
+<!--        movie.movie_name_uniq AS movieName,&#45;&#45; 影片名称-->
+<!--        c.ticket_income AS ticketIncomeRT, &#45;&#45; 实时票房-->
+<!--        c.show_sold_num/c.hall_seats_avl AS seatRate , &#45;&#45; 上座率-->
+<!--        c.normal_show_num AS normalShowNum, &#45;&#45; 场次-->
+<!--        c.show_sold_num AS showSoldNum,&#45;&#45; 人次-->
+<!--        c.normal_show_num/c.total_normal_show_num AS showNumZb, &#45;&#45; 场次占比-->
+<!--        c.ticket_income/c.total_ticket_income AS ticketIncomeZb, &#45;&#45; 票房占比-->
+<!--        c.show_sold_num/c.normal_show_num AS numPreShow&#45;&#45; 场均人次-->
+<!--        FROM-->
+<!--        (SELECT-->
+<!--        movie_code ,-->
+<!--        IFNULL(SUM(normal_show_num),0) AS normal_show_num,-->
+<!--        IFNULL(SUM(hall_seats_avl),0) AS hall_seats_avl,-->
+<!--        IFNULL(SUM(show_sold_num),0) AS show_sold_num,-->
+<!--        IFNULL(SUM(ticket_income),0) AS ticket_income,-->
+<!--        IFNULL(SUM(total_normal_show_num),0) AS total_normal_show_num,-->
+<!--        IFNULL(SUM(total_hall_seats_avl),0) AS total_hall_seats_avl,-->
+<!--        IFNULL(SUM(total_show_sold_num),0) AS total_show_sold_num,-->
+<!--        IFNULL(SUM(total_ticket_income),0) AS total_ticket_income-->
+<!--        FROM-->
+<!--        (SELECT-->
+<!--        ort.movie_code AS movie_code,-->
+<!--        IFNULL(COUNT(DISTINCT CONCAT(ort.cinema_code,ort.movie_show_code,ort.movie_show_start_time)),0) AS-->
+<!--        normal_show_num,-->
+<!--        IFNULL(SUM(ort.movie_show_sold_nums), 0) show_sold_num,-->
+<!--        IFNULL(SUM(ort.hall_seats_avl), 0) hall_seats_avl,-->
+<!--        IFNULL(SUM(ort.ticket_income), 0) ticket_income-->
+<!--        FROM-->
+<!--        new_t_m_sell_session_rt ort-->
+<!--        WHERE ort.del_flag = 1-->
+<!--        AND ort.cinema_code IN-->
+<!--        <foreach collection="cinemas" item="cinema" index="index" open="(" close=")" separator=",">-->
+<!--            #{cinema}-->
+<!--        </foreach>-->
+<!--        AND ort.movie_show_start_date = #{today,jdbcType=DATE}-->
+<!--        GROUP BY movie_code_unq)a-->
+<!--        LEFT JOIN-->
+<!--        (SELECT-->
+<!--        IFNULL(COUNT(DISTINCT CONCAT(ort.cinema_code,ort.movie_show_code,ort.movie_show_start_time)),0) AS-->
+<!--        total_normal_show_num,-->
+<!--        IFNULL(SUM(ort.movie_show_sold_nums), 0) total_show_sold_num,-->
+<!--        IFNULL(SUM(ort.ticket_income), 0) total_ticket_income,-->
+<!--        IFNULL(SUM(ort.hall_seats_avl), 0) total_hall_seats_avl-->
+<!--        FROM-->
+<!--        new_t_m_sell_session_rt ort-->
+<!--        WHERE ort.del_flag = 1-->
+<!--        AND ort.cinema_code IN-->
+<!--        <foreach collection="cinemas" item="cinema" index="index" open="(" close=")" separator=",">-->
+<!--            #{cinema}-->
+<!--        </foreach>-->
+<!--        AND ort.movie_show_start_date = #{today,jdbcType=DATE})b ON 1=1 GROUP BY movie_code) c-->
+<!--        LEFT JOIN t_d_movie_info movie-->
+<!--        ON c.movie_code = movie.movie_code GROUP BY c.movie_code-->
+<!--        ORDER BY ticket_income DESC-->
+<!--    </select>-->
+
+
+<!--    <select id="queryUpdateTime" resultType="java.util.Map">-->
+<!--        SELECT-->
+<!--        cinema_code-->
+<!--        FROM-->
+<!--        t_d_cinema_info-->
+<!--        WHERE 1 = 1-->
+<!--        AND cinema_code IN-->
+<!--        <foreach collection="cinemas" item="cinema" index="index" open="(" close=")" separator=",">-->
+<!--            #{cinema}-->
+<!--        </foreach>-->
+<!--        GROUP BY cinema_code-->
+<!--    </select>-->
+
+
+</mapper>
