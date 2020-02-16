@@ -90,5 +90,12 @@ public class BasicTest {
 		}
 	}
 
+	@Test
+	public void testStringReplace(){
+		String s = "([])";
+		s = s.replaceAll("\\[\\]", "");
+		System.out.println(s);
+	}
+
 
 }

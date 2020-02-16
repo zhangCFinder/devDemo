@@ -19,7 +19,7 @@ public class MapListTest {
 		while (iterator.hasNext()) {
 			String item = iterator.next();
 			if ("2".equals(item)) {
-				list.re
+//				list.re
 			}
 		}
 	}

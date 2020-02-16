@@ -21,7 +21,6 @@
         <!--<profile.env.name>pro</profile.env.name>-->
     </properties>
 
-
     <dependencies>
         <!--spring依赖包 开始-->
         <dependency>
@@ -172,18 +171,18 @@
         </dependency>
         <!--axis结束-->
 
-<!--        aspectj 开始-->
-<!--        <dependency>-->
-<!--            <groupId>org.aspectj</groupId>-->
-<!--            <artifactId>aspectjrt</artifactId>-->
-<!--            <version>1.6.11</version>-->
-<!--        </dependency>-->
+        <!--        aspectj 开始-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.aspectj</groupId>-->
+        <!--            <artifactId>aspectjrt</artifactId>-->
+        <!--            <version>1.6.11</version>-->
+        <!--        </dependency>-->
 
-<!--        <dependency>-->
-<!--            <groupId>org.aspectj</groupId>-->
-<!--            <artifactId>aspectjweaver</artifactId>-->
-<!--            <version>1.6.11</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.aspectj</groupId>-->
+        <!--            <artifactId>aspectjweaver</artifactId>-->
+        <!--            <version>1.6.11</version>-->
+        <!--        </dependency>-->
         <!--        aspectj结束-->
         <!--其他-->
         <dependency>
@@ -253,8 +252,32 @@
             <artifactId>dom4j</artifactId>
             <version>1.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.5.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.13</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-streams</artifactId>
+            <version>2.4.0</version>
+        </dependency>
 
     </dependencies>
+
+
+
+
 
 
     <build>
