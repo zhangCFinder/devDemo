@@ -14,7 +14,7 @@
         <spring.version>5.2.3.RELEASE</spring.version>
         <mysql.version>8.0.11</mysql.version>
         <jackson.version>1.9.13</jackson.version>
-        <fasterxml.jackson.version>2.10.2</fasterxml.jackson.version>
+        <fasterxml.jackson.version>2.12.1</fasterxml.jackson.version>
         <org.slf4j.version>1.7.25</org.slf4j.version>
         <druid.version>1.1.12</druid.version>
         <profile.env.name>dev</profile.env.name>
